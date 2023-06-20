@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: vproapp
+spec:
+  selector:
+    matchLabels:
+      app: vproapp
+  template:
+    metadata:
+      name: vproapp
+      labels:
+        app: vproapp
+    spec:
+      containers:
+      - name: app-container
+        image: agalal9111/vproargocd:latest
+        ports:
+        - containerPort: 8080
+      initContainers:
+      - name: init-mydb
+        image: busybox
+        command: ['sh', '-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+      - name: init-memcache
+        image: busybox
+        command: ['sh', '-c', 'until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vproapp
+spec:
+  type: LoadBalancer
+  selector:
+    app: vproapp
+  ports:
+  - port: 8080
+    targetPort: 8080

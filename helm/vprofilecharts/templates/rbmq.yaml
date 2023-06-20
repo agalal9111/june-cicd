@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rbmq-deployment
+  labels:
+    app: rbmq
+spec:
+  selector:
+    matchLabels:
+      app: rbmq
+  template:
+    metadata:
+      name: rbmq
+      labels:
+        app: rbmq
+    spec:
+      containers:
+      - name: rbmq-container
+        image: rabbitmq
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            configMapKeyRef:
+              key: rbmq_user
+              name: app-config
+
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              key: rbmq_pass
+              name: app-secret
+        ports:
+        - containerPort: 5672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpromq01
+spec:
+  type: ClusterIP
+  selector:
+    app: rbmq
+  ports:
+  - port: 5672
+    targetPort: 5672
+
