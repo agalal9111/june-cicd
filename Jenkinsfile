@@ -9,11 +9,11 @@ pipeline{
         registryCredential = 'dockerhub'
     }
     stages{
-        stage('clone the source code'){
+       /* stage('clone the source code'){
             steps {
                  git branch: "vp-rem" , url:"https://github.com/devopshydclub/vprofile-project.git"
             }
-        }
+        */}
         stage("build"){
             steps{
                 sh 'mvn install '
