@@ -13,7 +13,7 @@ pipeline{
             steps {
                  git branch: "vp-rem" , url:"https://github.com/devopshydclub/vprofile-project.git"
             }
-        */}
+        }*/
         stage("build"){
             steps{
                 sh 'mvn install '
