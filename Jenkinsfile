@@ -37,7 +37,7 @@ pipeline{
         }
     }
 
-            /*stage('Sonar Analaysis'){
+            stage('Sonar Analaysis'){
                     environment{
                                         scannerHome = tool 'Sonar4.8'
                                     }
@@ -53,7 +53,7 @@ pipeline{
                    -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
               }
             }
-        }*/
+        }
 
         stage('Build App Image') {
           steps {
