@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/agalal9111/june-cicd.git
     targetRevision: HEAD
-    path: helm/vprofilecharts/templates
+    path: helm/vprofilecharts
   destination:
     server: https://kubernetes.default.svc
     namespace: myapp
