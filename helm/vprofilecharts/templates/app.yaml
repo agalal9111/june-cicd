@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: app-container
-        image: agalal9111/vproargocd:latest
+        #image: agalal9111/vproargocd:latest
+        image: learnwithabhi/vproappdock:latest
         ports:
         - containerPort: 8080
       initContainers:
